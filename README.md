@@ -1,4 +1,4 @@
-# STPL_py
+# STLP_py
 Statistical tools for lazy people
 
 # Dependencies
