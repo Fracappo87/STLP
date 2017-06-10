@@ -16,6 +16,13 @@ class MissingData(object):
 
     """
     Extraction and study of features with missing data from a given dataset.
+    
+    Private parameters
+    ----------
+    __missings : pandas data frame built after the extraction of features with Nan values. To be used internally by the class methods
+    __ifcount : boolean variable, used to check whether or not the "count" method has been called
+    __trs : double variable, used to store the threshold value
+    
 
     Attributes
     ----------
@@ -23,20 +30,13 @@ class MissingData(object):
     The number of features containing missing values.
 
     support_ : array of shape [n_features].
-    The mask of selected features - only confirmed ones are True.
+    The mask of selected features.
 
     n_features_filter_ : int.
     The number of features whose missing values percentage is higher than a given threshold.
 
     support_filter_ : array of shape [n_features_filter_].
-    The mask of selected features whose missing value percentage is higher than a given threshold - only confirmed ones are True.
-
-    summary_: pandas Dataframe of shape [n_features or n_features_filter_,3]
-    The data frame has the following form
-
-    feature name | Total # of missing data | Percentage of missing data
-
-    filtered_: a new data set, with n_features_filter_ removed features.
+    The mask of selected features whose missing value percentage is higher than a given threshold.
 
     """
 
@@ -60,7 +60,7 @@ class MissingData(object):
             labels : list-like, shape = [n_features]
             List of strings characterizing the columns.
 
-            threshold : reference value for the percentage of missing data, 0 by default. When specified, it allows the computation of                              n_features_filter_ and support_filter_
+            threshold : reference value for the percentage of missing data, 0 by default. When specified, it allows the computation of n_features_filter_ and support_filter_
         """
 
         return self._count(X, labels,threshold)
@@ -71,10 +71,6 @@ class MissingData(object):
 
         """
         Produces a summary table, containing feature name, total missing data and percentage of missing data
-        Parameters
-        ----------
-
-        threshold : reference value for the percentage of missing data, 0 by default. When specified, it allows the computation of                              n_features_filter_ and support_filter_
         """
 
         return self._summary()
@@ -89,11 +85,6 @@ class MissingData(object):
         ----------
         X : Pandas Data Frame-like, shape = [n_samples, n_features]
         The training input samples.
-
-        labels : list-like, shape = [n_features]
-        List of strings characterizing the columns.
-
-        threshold : reference value for the percentage of missing data, 0 by default. When specified, it allows the computation of                              n_features_filter_ and support_filter_
         """
 
         return self._transform(X)
