@@ -2,7 +2,7 @@ import numpy
 import pandas
 import unittest
 
-from correlation import CorrelationAnalyzer
+from ..correlation import CorrelationAnalyzer
 
 class TestCorrelationAnalyzer(unittest.TestCase):
     def test_init(self):

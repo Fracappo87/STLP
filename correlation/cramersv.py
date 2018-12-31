@@ -8,9 +8,10 @@ class CramersV(CorrelationAnalyzer):
     def __init__(self, dataframe, weights_column=None):
         super().__init__(dataframe, weights_column)
 
-    def produce_cramersV_table(self):
+    def produce_correlation_table(self):
         columns = self.dataframe.columns.values.tolist()
-        columns.remove(self.weights_column)
+        if self.weights_column != None:
+            columns.remove(self.weights_column)
         combinations = self.compute_all_combinations(columns)
 
         results = numpy.array([])

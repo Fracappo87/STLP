@@ -2,7 +2,7 @@ import numpy
 import pandas
 import unittest
 
-from mutual_info import MutualInfo
+from ..mutual_info import MutualInfo
 
 class TestMutualInfo(unittest.TestCase):
     def test_mutual_information_stat(self):
@@ -24,7 +24,7 @@ class TestMutualInfo(unittest.TestCase):
         for test_array, value in zip(test_arrays, expected_values):
             self.assertAlmostEqual(value, MutualInfo.mutual_information_stat(test_array), places=4)
 
-    def test_produce_mutual_information_table(self):
+    def test_produce_correlation_table(self):
         test_frame = pandas.DataFrame({'Music Type':['Pop', 'Rock', 'Jazz', 'Classical', 'Other',
                                                      'Pop', 'Rock', 'Jazz', 'Classical', 'Other',
                                                      'Pop', 'Rock', 'Jazz', 'Classical', 'Other',
@@ -39,8 +39,8 @@ class TestMutualInfo(unittest.TestCase):
                                                    6, 6, 12, 18, 18]})
 
         A = MutualInfo(test_frame, 'Weights')
-        correlation_table = A.produce_mutual_information_table()
-        mutual_info_XX =  (120.*numpy.log(200./60)+40.*numpy.log(200./40)+20.*numpy.log(200./20))/200.
-        mutual_info_YY =  5*(20.*numpy.log(160./20)/160.)
-        expected_frame = pandas.DataFrame(numpy.array([[ mutual_info_YY,0],[0, mutual_info_XX]]), index=['Music Type', 'Study'], columns=['Music Type', 'Study'])
+        correlation_table = A.produce_correlation_table()
+        mutual_info_music_type =  (120.*numpy.log(200./60)+40.*numpy.log(200./40)+40.*numpy.log(200./20))/200.
+        mutual_info_study =  (80.*numpy.log(200./40) + 120.*numpy.log(200./60.))/200.
+        expected_frame = pandas.DataFrame(numpy.array([[ mutual_info_music_type,0],[0, mutual_info_study]]), index=['Music Type', 'Study'], columns=['Music Type', 'Study'])
         pandas.testing.assert_frame_equal(expected_frame, correlation_table)
