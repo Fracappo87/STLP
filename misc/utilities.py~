@@ -1,0 +1,10 @@
+import numpy
+
+def generate_new_range(value, n_points):
+    """
+    Generate a range of number areound a central value
+    """
+
+    lower = value*(1-.5)
+    upper = value*(1+.5)
+    return numpy.linspace(lower, upper, n_points)
